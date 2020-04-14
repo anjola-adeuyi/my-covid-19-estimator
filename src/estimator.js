@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 const covid19ImpactEstimator = (data) => {
   const input = data;
 
@@ -11,7 +12,7 @@ const covid19ImpactEstimator = (data) => {
     casesForICUByRequestedTime: 0,
     casesForVentilatorsByRequestedTime: 0,
     dollarsInFlight: 0
-  }; 
+  };
 
   const severeImpact = {
     currentlyInfected: 0,
@@ -25,14 +26,13 @@ const covid19ImpactEstimator = (data) => {
     dollarsInFlight: 0
   };
 
-  
   // impact
   // ch-1
   impact.currentlyInfected = Math.trunc(input.reportedCases * 10);
   // console.log(impact.currentlyInfected);
 
   const checkType = input.periodType;
-  const numDays;
+  let numDays = 0;
 
   switch (checkType) {
     case 'days':
@@ -46,43 +46,73 @@ const covid19ImpactEstimator = (data) => {
       break;
   }
   const factorDays = Math.trunc(numDays / 3);
-  impact.infectionsByRequestedTime = Math.trunc(impact.currentlyInfected * (2 ** factorDays));
+  impact.infectionsByRequestedTime = Math.trunc(
+    impact.currentlyInfected * 2 ** factorDays
+  );
 
   // ch-2
-  impact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15);
+  impact.severeCasesByRequestedTime = Math.trunc(
+    impact.infectionsByRequestedTime * 0.15
+  );
 
-  impact.hospitalBedsByRequestedTime = Math.trunc(input.totalHospitalBeds * 0.95 * (1 - 0.65) - impact.severeCasesByRequestedTime * 0.35);
+  impact.hospitalBedsByRequestedTime = Math.trunc(
+    input.totalHospitalBeds * 0.95 * (1 - 0.65) -
+      impact.severeCasesByRequestedTime * 0.35
+  );
 
   // ch-3
-  impact.casesForICUByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.05);
+  impact.casesForICUByRequestedTime = Math.trunc(
+    impact.infectionsByRequestedTime * 0.05
+  );
 
-  impact.casesForVentilatorsByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.02);
+  impact.casesForVentilatorsByRequestedTime = Math.trunc(
+    impact.infectionsByRequestedTime * 0.02
+  );
 
-  impact.dollarsInFlight = Math.trunc((impact.infectionsByRequestedTime * input.region.avgDailyIncomePopulation * input.region.avgDailyIncomeInUSD) / numDays );
+  impact.dollarsInFlight = Math.trunc(
+    (impact.infectionsByRequestedTime *
+      input.region.avgDailyIncomePopulation *
+      input.region.avgDailyIncomeInUSD) /
+      numDays
+  );
 
   // severeImpact
   // ch-1
   severeImpact.currentlyInfected = Math.trunc(input.reportedCases * 50);
-  severeImpact.infectionsByRequestedTime = Math.trunc(severeImpact.currentlyInfected * (2 ** factorDays));
+  severeImpact.infectionsByRequestedTime = Math.trunc(
+    severeImpact.currentlyInfected * 2 ** factorDays
+  );
 
   // ch-2
-  severeImpact.severeCasesByRequestedTime = Math.trunc( severeImpact.infectionsByRequestedTime * 0.15 );
+  severeImpact.severeCasesByRequestedTime = Math.trunc(
+    severeImpact.infectionsByRequestedTime * 0.15
+  );
 
-  severeImpact.hospitalBedsByRequestedTime = Math.trunc(input.totalHospitalBeds * 0.95 * (1 - 0.65) - severeImpact.severeCasesByRequestedTime * 0.35);
+  severeImpact.hospitalBedsByRequestedTime = Math.trunc(
+    input.totalHospitalBeds * 0.95 * (1 - 0.65) -
+      severeImpact.severeCasesByRequestedTime * 0.35
+  );
 
   // ch-3
-  severeImpact.casesForICUByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.05);
+  severeImpact.casesForICUByRequestedTime = Math.trunc(
+    severeImpact.infectionsByRequestedTime * 0.05
+  );
 
   severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(
     severeImpact.infectionsByRequestedTime * 0.02
   );
 
-  severeImpact.dollarsInFlight = Math.trunc((severeImpact.infectionsByRequestedTime * input.region.avgDailyIncomePopulation * input.region.avgDailyIncomeInUSD) / numDays);
+  severeImpact.dollarsInFlight = Math.trunc(
+    (severeImpact.infectionsByRequestedTime *
+      input.region.avgDailyIncomePopulation *
+      input.region.avgDailyIncomeInUSD) /
+      numDays
+  );
 
   return {
     data,
-    impact: impact,
-    severeImpact: severeImpact
+    impact: {},
+    severeImpact: { severeImpact }
   };
 };
 
