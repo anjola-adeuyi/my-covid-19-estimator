@@ -18,6 +18,12 @@ module.exports = {
   rules: {
     'comma-dangle': ['error', 'never'],
     'no-param-reassign': ['error', { props: false }],
-    'default-case': ['error', { commentPattern: '^skip\\sdefault' }]
+    'default-case': ['error', { commentPattern: '^skip\\sdefault' }],
+    'prettier/prettier': 'off',
+    'spaced-comment': 'off',
+    'no-unused-vars': 'warn',
+    'no-console': 'off',
+    'func-names': 'off',
+    'no-process-exit': 'off'
   }
 };
