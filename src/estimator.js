@@ -25,6 +25,7 @@ const covid19ImpactEstimator = (data) => {
     dollarsInFlight: 0
   };
 
+  
   // impact
   // ch-1
   impact.currentlyInfected = Math.trunc(input.reportedCases * 10);
