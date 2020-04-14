@@ -11,7 +11,7 @@ const covid19ImpactEstimator = (data) => {
     casesForICUByRequestedTime: 0,
     casesForVentilatorsByRequestedTime: 0,
     dollarsInFlight: 0
-  };
+  }; 
 
   const severeImpact = {
     currentlyInfected: 0,
@@ -30,7 +30,7 @@ const covid19ImpactEstimator = (data) => {
   impact.currentlyInfected = Math.trunc(input.reportedCases * 10);
   // console.log(impact.currentlyInfected);
 
-  let checkType = input.periodType;
+  const checkType = input.periodType;
   const numDays;
 
   switch (checkType) {
