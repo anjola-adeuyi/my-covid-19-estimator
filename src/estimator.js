@@ -56,8 +56,7 @@ const covid19ImpactEstimator = (data) => {
   );
 
   impact.hospitalBedsByRequestedTime = Math.trunc(
-    input.totalHospitalBeds * 0.95 * (1 - 0.65) -
-      impact.severeCasesByRequestedTime * 0.35
+    input.totalHospitalBeds * 0.35 - impact.severeCasesByRequestedTime
   );
 
   // ch-3
@@ -89,8 +88,7 @@ const covid19ImpactEstimator = (data) => {
   );
 
   severeImpact.hospitalBedsByRequestedTime = Math.trunc(
-    input.totalHospitalBeds * 0.95 * (1 - 0.65) -
-      severeImpact.severeCasesByRequestedTime * 0.35
+    input.totalHospitalBeds * 0.35 - severeImpact.severeCasesByRequestedTime
   );
 
   // ch-3
